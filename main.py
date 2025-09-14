@@ -50,7 +50,7 @@ hours = data['hours']
 city = geoloc.get('city')
 
 lines = []
-
+#manipulating data to make readable lines of info
 for hour in hours:
     time = hour['time']
     temp = hour['airTemperature']['sg']
@@ -59,11 +59,11 @@ for hour in hours:
     lines.append(f"{time} | Temp: {temp}°C | Wind: {wind} m/s | Clouds: {clouds}%| City: {city}")
     
 forecast_text = "\n".join(lines)
-
+#sandbox email because actual sending isnt needed, response is printed
 msg = EmailMessage()
 msg["Subject"] = f"Daily Weather Forecast for {city}"
-msg["From"] = "samplemail@gmail.com"
-msg["To"] = "samplecustomer@gmail.com"
+msg["From"] = "hello@www.portgo.xyz"
+msg["To"] = "blackangelmusic22@gmail.com"
 
 msg.set_content(forecast_text)
 
@@ -71,4 +71,6 @@ with smtplib.SMTP("sandbox.smtp.mailtrap.io", 2525) as server:
     server.starttls()
     server.login("7ae883b3569372", "dc68b68186cf0b")
     server.send_message(msg)
+    
+print(forecast_text)
         
